@@ -18,6 +18,7 @@ const express   = require('express')
 const qrcode    = require('qrcode-terminal')
 const cron      = require('node-cron')
 const { createClient } = require('@supabase/supabase-js')
+// const ws = require('ws')
 
 /* ─── Config ─────────────────────────────────────────────── */
 const PORT          = process.env.PORT          || 3000
@@ -31,8 +32,6 @@ if (!SECRET)       { console.error('❌ WA_SERVICE_SECRET is required'); process
 if (!SUPABASE_URL) { console.error('❌ SUPABASE_URL is required');       process.exit(1) }
 
 /* ─── Supabase client ─────────────────────────────────────── */
-
-const { createClient } = require('@supabase/supabase-js')
 const ws = require('ws')
 
 const supabase = createClient(
@@ -40,7 +39,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY,
   {
     realtime: {
-      transport: (url, options) => new ws(url, optioans)
+      transport: (url, options) => new ws(url, options)
     }
   }
 )
