@@ -5,8 +5,7 @@ RUN apt-get update && apt-get install -y \
     chromium \
     fonts-noto-color-emoji \
     fonts-noto-core \
-    fonts-noto-ui-core \
-    fonts-noto-kufi-arabic \
+    fonts-dejavu \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
