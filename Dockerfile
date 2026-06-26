@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:18-slim
 
 # Install Chromium for whatsapp-web.js (puppeteer)
 RUN apt-get update && apt-get install -y \
