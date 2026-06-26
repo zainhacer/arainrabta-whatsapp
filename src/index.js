@@ -31,7 +31,21 @@ if (!SECRET)       { console.error('❌ WA_SERVICE_SECRET is required'); process
 if (!SUPABASE_URL) { console.error('❌ SUPABASE_URL is required');       process.exit(1) }
 
 /* ─── Supabase client ─────────────────────────────────────── */
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+import { createClient } from '@supabase/supabase-js'
+import ws from 'ws'
+
+const { createClient } = require('@supabase/supabase-js')
+const ws = require('ws')
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  {
+    realtime: {
+      transport: (url, options) => new ws(url, options)
+    }
+  }
+)
 
 /* ─── State ───────────────────────────────────────────────── */
 let waClient   = null
