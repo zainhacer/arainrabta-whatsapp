@@ -1,0 +1,24 @@
+# Render.com free tier deployment config
+# Push to GitHub → connect on render.com → auto-deploy
+services:
+  - type: web
+    name: arainrabta-whatsapp
+    runtime: docker
+    plan: free
+    envVars:
+      - key: WA_SERVICE_SECRET
+        generateValue: true         # Render auto-generates a secure random value
+      - key: SUPABASE_URL
+        sync: false                 # You set this in Render dashboard
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: WA_SESSION_NAME
+        value: arainrabta
+      - key: ADMIN_PHONE
+        sync: false
+      - key: PORT
+        value: 3000
+    disk:
+      name: wa-session
+      mountPath: /app/.wwebjs_auth
+      sizeGB: 1                     # Free persistent disk for session storage
