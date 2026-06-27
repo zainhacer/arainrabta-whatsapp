@@ -15,6 +15,7 @@ require('dotenv').config()
 
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js')
 const express   = require('express')
+const cors      = require('cors')
 const qrcode    = require('qrcode-terminal')
 const cron      = require('node-cron')
 const { createClient } = require('@supabase/supabase-js')
@@ -198,6 +199,8 @@ async function processQueue() {
 /* ─── Express HTTP Server ─────────────────────────────────── */
 const app = express()
 app.use(express.json())
+app.use(cors({ origin: '*', methods: ['GET','POST','OPTIONS'], allowedHeaders: ['Content-Type','x-service-secret'] }))
+app.options('*', cors())
 
 // Auth middleware
 const auth = (req, res, next) => {
